@@ -1,4 +1,15 @@
+import { useEffect } from 'react';
+import { getPhoneList } from '../api';
+
 export function PhoneList() {
+  // useEffect loads all contacts.
+  useEffect(() => {
+    // setLoading(true);
+    getPhoneList()
+      .then((u) => console.log(u))
+      .catch(() => console.log('error'));
+    //   .finally(() => setLoading(false));
+  }, []);
   return (
     <div
       style={{ backgroundSize: '100% auto' }}
