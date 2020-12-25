@@ -1,101 +1,32 @@
-<<<<<<< HEAD
 import { useEffect } from 'react';
-import { getPhoneList } from '../api';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
+import actions from '../../redux/actions/phone';
+import { getPhoneList } from '../../api';
+import { Button } from '../../components';
 
 export function PhoneList() {
-  // useEffect loads all contacts.
+  const history = useHistory();
+  const phoneList = useSelector((s) => s.phone.items);
+  const dispatch = useDispatch();
+
+  // useEffect loads all phones.
   useEffect(() => {
     // setLoading(true);
+    sessionStorage.removeItem('phoneId');
+    dispatch(actions.selectedPhone(null));
     getPhoneList()
-      .then((u) => console.log(u))
+      .then((response) => dispatch(actions.loadTable(response.data)))
       .catch(() => console.log('error'));
     //   .finally(() => setLoading(false));
   }, []);
-=======
-import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 
-import { Button } from '../../components';
+  const handlePhoneSelect = (phone) => {
+    dispatch(actions.selectedPhone(phone));
+    history.push(`/phone/${phone.id}/details`);
+  };
 
-const dummyPhoneList = [
-  {
-    id: 0,
-    name: 'iPhone 7',
-    manufacturer: 'Apple',
-    description: 'lorem ipsum dolor sit amet consectetur.',
-    color: 'black',
-    price: 769,
-    imageFileName: 'IPhone_7.png',
-    screen: '4,7 inch IPS',
-    processor: 'A10 Fusion',
-    ram: 2,
-  },
-  {
-    id: 1,
-    name: 'iPhone 6',
-    manufacturer: 'Apple',
-    description: 'lorem ipsum dolor sit amet consectetur.',
-    color: 'white',
-    price: 769,
-    imageFileName: 'IPhone_7.png',
-    screen: '4,7 inch IPS',
-    processor: 'A10 Fusion',
-    ram: 2,
-  },
-  {
-    id: 2,
-    name: 'Samsung S20',
-    manufacturer: 'Samsung',
-    description: 'lorem ipsum dolor sit amet consectetur.',
-    color: 'gold',
-    price: 769,
-    imageFileName: 'IPhone_7.png',
-    screen: '4,7 inch IPS',
-    processor: 'A10 Fusion',
-    ram: 2,
-  },
-  {
-    id: 3,
-    name: 'iPhone 7',
-    manufacturer: 'Apple',
-    description: 'lorem ipsum dolor sit amet consectetur.',
-    color: 'black',
-    price: 769,
-    imageFileName: 'IPhone_7.png',
-    screen: '4,7 inch IPS',
-    processor: 'A10 Fusion',
-    ram: 2,
-  },
-  {
-    id: 4,
-    name: 'iPhone 6',
-    manufacturer: 'Apple',
-    description: 'lorem ipsum dolor sit amet consectetur.',
-    color: 'white',
-    price: 769,
-    imageFileName: 'IPhone_7.png',
-    screen: '4,7 inch IPS',
-    processor: 'A10 Fusion',
-    ram: 2,
-  },
-  {
-    id: 5,
-    name: 'Samsung S20',
-    manufacturer: 'Samsung',
-    description: 'lorem ipsum dolor sit amet consectetur.',
-    color: 'gold',
-    price: 769,
-    imageFileName: 'IPhone_7.png',
-    screen: '4,7 inch IPS',
-    processor: 'A10 Fusion',
-    ram: 2,
-  },
-];
-export function PhoneList() {
-  const history = useHistory();
-  const [phoneList, setPhoneList] = useState(dummyPhoneList);
-
->>>>>>> ae92cd87d94177e1d16f1fc79e708ca1cc18bc3e
   return (
     <div className="flex flex-wrap justify-center text-gray-700 text-sm font-light min-w-min w-screen">
       <div className="flex w-full m-6">
@@ -110,7 +41,7 @@ export function PhoneList() {
             <div>Model : {phone.name}</div>
             <div>Color : {phone.color}</div>
             <div>Price : {phone.price} $</div>
-            <Button color={Button.COLOR_INDIGO} onClick={() => history.push(`/phone/${phone.id}/details`)}>
+            <Button color={Button.COLOR_INDIGO} onClick={(phone) => handlePhoneSelect(phone)}>
               See more
             </Button>
           </div>

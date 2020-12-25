@@ -2,7 +2,7 @@ import actions from '../actions/phone';
 
 const INITIAL_STATE = {
   items: [],
-  selected: null,
+  selected: null
 };
 
 export function phone(state = INITIAL_STATE, { type, payload }) {

@@ -1,1 +1,1 @@
-export { getPhoneList, updateContact, deleteContact, addContact } from './contact';
+export { getPhoneList, updatePhone, deletePhone, addPhone } from './phone';
