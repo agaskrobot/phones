@@ -1,52 +1,81 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import actions from '../../redux/actions/phone';
-import { getPhoneList } from '../../api';
-import { Button } from '../../components';
+import { getPhoneList, addPhone } from '../../api';
+import { Button, Alert, Spinner } from '../../components';
+import { CreatePhoneModal } from './CreatePhoneModal';
 
 export function PhoneList() {
   const history = useHistory();
   const phoneList = useSelector((s) => s.phone.items);
   const dispatch = useDispatch();
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   // useEffect loads all phones.
   useEffect(() => {
-    // setLoading(true);
+    setLoading(true);
     sessionStorage.removeItem('phoneId');
     dispatch(actions.selectedPhone(null));
     getPhoneList()
       .then((response) => dispatch(actions.loadTable(response.data)))
-      .catch(() => console.log('error'));
-    //   .finally(() => setLoading(false));
+      .catch((error) => setError(error.message))
+      .finally(() => setLoading(false));
   }, []);
 
+  // Dispatch selected phone
   const handlePhoneSelect = (phone) => {
     dispatch(actions.selectedPhone(phone));
     history.push(`/phone/${phone.id}/details`);
   };
 
+  // Create new phone
+  const handleCreatePhone = (name) => {
+    setLoading(true);
+    addPhone(name)
+      .then((response) => {
+        setLoading(false);
+        dispatch(actions.appendPhone(response.data.content));
+        dispatch(actions.selectedPhone(response.data.content));
+        history.push(`/phone/${response.data.content.id}/details`);
+      })
+      .catch((error) => {
+        setLoading(false);
+        setShowModal(false);
+        setError(error.message);
+      });
+  };
+
   return (
-    <div className="flex flex-wrap justify-center text-gray-700 text-sm font-light min-w-min w-screen">
-      <div className="flex w-full m-6">
-        <Button color={Button.COLOR_GREEN} width="w-64" onClick={() => null}>
-          Add new phone
-        </Button>
-      </div>
-      {phoneList.map((phone) => (
-        <div key={phone.id}>
-          <div className="w-64 m-6">
-            <img src={phone.imageFileName} className="w-64 h-64 border border-gray-500" alt="phone" />
-            <div>Model : {phone.name}</div>
-            <div>Color : {phone.color}</div>
-            <div>Price : {phone.price} $</div>
-            <Button color={Button.COLOR_INDIGO} onClick={(phone) => handlePhoneSelect(phone)}>
-              See more
+    <>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <div className="flex flex-wrap md:px-20 flex-row justify-start text-gray-700 text-sm font-light min-w-min w-screen">
+          <Alert error={error} onClose={() => setError(null)} />
+          <CreatePhoneModal showModal={showModal} onClose={() => setShowModal(false)} onCreate={handleCreatePhone} />
+          <div className="flex flex-wrap justify-center md:justify-end w-full m-6">
+            <Button color={Button.COLOR_GREEN} width="w-64" onClick={() => setShowModal(true)}>
+              Add new phone
             </Button>
           </div>
+          {phoneList.map((phone) => (
+            <div
+              key={phone.id}
+              className="inline-block hover:bg-white cursor-pointer p-6 rounded hover:shadow-lg"
+              onClick={() => handlePhoneSelect(phone)}
+            >
+              <img src={phone.imageFileName} className="w-64 h-64 border border-gray-500" alt="phone" />
+              <div>Model : {phone.name}</div>
+              <div>Color : {phone.color}</div>
+              <div>Price : {phone.price} $</div>
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
+      )}
+    </>
   );
 }

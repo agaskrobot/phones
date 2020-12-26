@@ -1,1 +1,1 @@
-export { getPhoneList, updatePhone, deletePhone, addPhone } from './phone';
+export { getPhoneList, getPhone, updatePhone, deletePhone, addPhone } from './phone';
