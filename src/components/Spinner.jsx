@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 import { ReactComponent as SpinnerIcon } from '../assets/icons/spinner.svg';
 
 export function Spinner() {
@@ -9,6 +7,3 @@ export function Spinner() {
     </div>
   );
 }
-Spinner.propTypes = {
-  loading: PropTypes.bool,
-};

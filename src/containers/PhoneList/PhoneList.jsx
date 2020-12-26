@@ -68,7 +68,13 @@ export function PhoneList() {
               className="inline-block hover:bg-white cursor-pointer p-6 rounded hover:shadow-lg"
               onClick={() => handlePhoneSelect(phone)}
             >
-              <img src={phone.imageFileName} className="w-64 h-64 border border-gray-500" alt="phone" />
+              {phone.imageFileName !== null && phone.imageFileName !== undefined && phone.imageFileName !== '' ? (
+                <img src={phone.imageFileName} className="w-64 h-64 border border-gray-300" alt="avatar" />
+              ) : (
+                <div className="flex justify-center items-center text-gray-700 w-64 h-64 border border-gray-300">
+                  No image available
+                </div>
+              )}
               <div>Model : {phone.name}</div>
               <div>Color : {phone.color}</div>
               <div>Price : {phone.price} $</div>
