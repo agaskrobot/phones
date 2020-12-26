@@ -62,8 +62,9 @@ export function PhoneDetails() {
     setLoading(true);
     updatePhone(phone.id, data)
       .then((response) => {
-        setMessage('Data has been successfully saved');
-        dispatch(actions.replacePhone(response.data));
+        setMessage(response.data.message);
+        dispatch(actions.replacePhone(response.data.content));
+        dispatch(actions.selectedPhone(response.data.content));
         setReadOnly(true);
         setLoading(false);
       })
@@ -95,7 +96,7 @@ export function PhoneDetails() {
               onClose={() => setShowModal(false)}
               onDelete={handleDelete}
             />
-            <div className="flex flex-wrap flex-col m-6 p-6 items-center bg-white shadow-lg rounded-lg justify-center min-w-min">
+            <div className="flex flex-wrap flex-col p-6 items-center bg-white shadow-lg rounded-lg justify-center min-w-min">
               <div className="flex flex-wrap justify-center">
                 <Button
                   color={Button.COLOR_YELLOW}
