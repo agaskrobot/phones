@@ -61,5 +61,5 @@ UploadImage.propTypes = {
   id: PropTypes.any,
   readOnly: PropTypes.bool,
   imgSrc: PropTypes.string,
-  onChange: PropTypes.func,
+  onChange: PropTypes.func
 };
