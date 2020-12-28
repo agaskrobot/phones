@@ -15,7 +15,7 @@ const actions = {
   selectedPhone: (phone) => ({ type: SELECTED_PHONE, payload: { phone } }),
   replacePhone: (phone) => ({ type: REPLACE_PHONE, payload: { phone } }),
   deletePhone: (phoneId) => ({ type: DELETE_PHONE, payload: { phoneId } }),
-  loadTable: (phoneList) => ({ type: LOAD_PHONE_LIST, payload: { phoneList } }),
+  loadTable: (phoneList) => ({ type: LOAD_PHONE_LIST, payload: { phoneList } })
 };
 
 export default actions;

@@ -22,7 +22,9 @@ export function UploadImage({ id, imgSrc, readOnly, onChange }) {
     imageEditable = <img className="group-hover:opacity-50 absolute w-64 h-64 z-1" src={imgSrc} alt="avatar" />;
   } else {
     imageEditable = (
-      <div className="group-hover:opacity-50 group-hover:text-gray-300 flex justify-center items-center absolute w-64 h-64 z-1">Upload Image</div>
+      <div className="group-hover:opacity-50 group-hover:text-gray-300 flex justify-center items-center absolute w-64 h-64 z-1">
+        Upload Image
+      </div>
     );
   }
 
