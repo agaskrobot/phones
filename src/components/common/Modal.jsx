@@ -41,5 +41,5 @@ Modal.propTypes = {
   buttonIconAdd: PropTypes.bool,
   showModal: PropTypes.bool,
   onClose: PropTypes.func,
-  onSave: PropTypes.func,
+  onSave: PropTypes.func
 };

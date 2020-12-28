@@ -8,7 +8,7 @@ const history = createBrowserHistory({ basename: '/' });
 const initialState = {};
 const rootReducer = combineReducers({
   phone,
-  router: routerReducer,
+  router: routerReducer
 });
 
 const store = createStore(rootReducer, initialState);

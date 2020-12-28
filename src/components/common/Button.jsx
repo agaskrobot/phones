@@ -25,7 +25,7 @@ Button.propTypes = {
   width: PropTypes.string,
   color: PropTypes.string,
   disabled: PropTypes.bool,
-  submit: PropTypes.bool,
+  submit: PropTypes.bool
 };
 
 Button.COLOR_RED = 'bg-red-500';

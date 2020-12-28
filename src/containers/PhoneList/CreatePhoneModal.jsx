@@ -42,5 +42,5 @@ export function CreatePhoneModal({ showModal, onClose, onCreate }) {
 CreatePhoneModal.propTypes = {
   showModal: PropTypes.bool,
   onClose: PropTypes.func,
-  onCreate: PropTypes.func,
+  onCreate: PropTypes.func
 };

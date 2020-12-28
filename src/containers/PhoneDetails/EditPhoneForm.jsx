@@ -143,5 +143,5 @@ export function EditPhoneForm({ readOnly, phone, onSave }) {
 EditPhoneForm.propTypes = {
   phone: PropTypes.object,
   readOnly: PropTypes.bool,
-  onSave: PropTypes.func,
+  onSave: PropTypes.func
 };

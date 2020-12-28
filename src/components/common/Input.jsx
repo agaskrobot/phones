@@ -11,7 +11,9 @@ export function Input({ id, width, textarea, placeholder, type, value, error, re
     return (
       <div className="flex flex-wrap mb-1">
         <span className="h-8 py-2 px-3 w-36">{placeholder} :</span>
-        <span className={`${textarea ? ' h-16 ' : ' h-8 '} text-sm py-2 px-3 font-light ${width ? width : 'w-full'}`}>{value}</span>
+        <span className={`${textarea ? ' h-16 ' : ' h-8 '} text-sm py-2 px-3 font-light ${width ? width : 'w-full'}`}>
+          {value}
+        </span>
       </div>
     );
   }
@@ -58,5 +60,5 @@ Input.propTypes = {
   textarea: PropTypes.bool,
   value: PropTypes.any,
   error: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired
 };

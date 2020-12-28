@@ -30,5 +30,5 @@ DeletePhoneModal.propTypes = {
   buttonIconAdd: PropTypes.bool,
   showModal: PropTypes.bool,
   onClose: PropTypes.func,
-  onDelete: PropTypes.func,
+  onDelete: PropTypes.func
 };
