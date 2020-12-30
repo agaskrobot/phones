@@ -1,10 +1,22 @@
-FROM node:lts-slim
+FROM node:14-buster
 
-RUN mkdir -p /usr/src/app
+# Set workdor to install the dependencies
+WORKDIR /var/app
 
-COPY package.json /usr/src/app/
-RUN yarn install
+# Copy the dependency files
+COPY package.json yarn.lock ./
 
-EXPOSE 3000
+# Install the dependencies
+RUN yarn install --pure-lockfile --non-interactive --verbose
 
-CMD [ "yarn", "start" ]
+# Make sure the dependency binaries are found
+ENV PATH /var/app/node_modules/.bin:$PATH
+
+# Make sure the node modules are found
+ENV NODE_PATH=/var/app/node_modules
+
+# Set workdir
+WORKDIR /app
+
+# Copy the application code
+COPY . .
