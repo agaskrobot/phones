@@ -29,5 +29,8 @@ After open [http://localhost:3000](http://localhost:3000) to access the applicat
 To run the application with docker execute:
 
     docker-compose up
+    
+    
+After open [http://localhost:3000](http://localhost:3000) to access the application.
 
       
