@@ -5,7 +5,7 @@ import { PhoneDetails } from '../PhoneDetails';
 import { NotFound } from '../../components';
 
 const AppRouter = () => (
-  <BrowserRouter>
+  <BrowserRouter basename={process.env.REACT_APP_ROOT_PATH}>
     <Switch>
       <Route exact path="/" component={PhoneList} />
       <Route exact path="/phone/:phoneId/details" component={PhoneDetails} />
