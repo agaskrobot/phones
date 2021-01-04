@@ -16,10 +16,18 @@
 
     yarn install
 
-### Start application:
+### Start application locally:
 
 To run the application in the development mode execute:
 
     yarn start
 
 After open [http://localhost:3000](http://localhost:3000) to access the application.
+
+### Start application with docker:
+
+To run the application with docker execute:
+
+    docker-compose up
+
+      
